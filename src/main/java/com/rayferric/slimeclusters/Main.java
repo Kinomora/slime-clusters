@@ -2,6 +2,9 @@ package com.rayferric.slimeclusters;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -25,17 +28,31 @@ import java.util.stream.Stream;
 //
 
 public class Main {
-    public static void main(@NotNull String[] args) {
+    public static void main(@NotNull String[] args) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("clusters.txt"));
+
         // Maps world seeds to lists of clusters:
-        SearchMapper mapper = new SearchMapper(1024, 20);
+        SearchMapper mapper = new SearchMapper(1024, 23);
 
         // Get a stream of seeds to test:
-        LongStream seeds = LongStream.rangeClosed(Long.MIN_VALUE, Long.MAX_VALUE);
+        LongStream seeds = LongStream.range(0L, 1L << 48);
 
         // Map them to cluster lists and flatten into a single stream:
         Stream<Cluster> clusters = seeds.mapToObj(mapper::run).flatMap(List::stream).parallel();
 
         // Process and print:
-        clusters.forEach(System.out::println);
+        clusters.forEach(cluster -> {
+            try {
+                System.out.println(cluster);
+                writer.write(cluster.toString());
+                writer.newLine();
+                writer.flush();
+            } catch(IOException e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        });
+
+        writer.close();
     }
 }

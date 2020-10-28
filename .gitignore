@@ -5,3 +5,6 @@
 /.gradle/
 build/
 lib/
+
+# Other
+clusters.txt
