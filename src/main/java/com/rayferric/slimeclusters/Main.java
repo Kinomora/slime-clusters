@@ -27,10 +27,10 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(@NotNull String[] args) {
         // Maps world seeds to lists of clusters:
-        SearchMapper mapper = new SearchMapper(512, 20);
+        SearchMapper mapper = new SearchMapper(1024, 20);
 
         // Get a stream of seeds to test:
-        LongStream seeds = LongStream.rangeClosed(0, 100000);
+        LongStream seeds = LongStream.rangeClosed(Long.MIN_VALUE, Long.MAX_VALUE);
 
         // Map them to cluster lists and flatten into a single stream:
         Stream<Cluster> clusters = seeds.mapToObj(mapper::run).flatMap(List::stream).parallel();
