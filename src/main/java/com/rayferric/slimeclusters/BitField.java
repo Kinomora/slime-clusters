@@ -12,7 +12,7 @@ public class BitField {
      * @param size the amount of bits for this field
      */
     public BitField(long size) {
-        // Equivalent to: ceil(size / 32F)
+        // Equivalent to: ceil(size / 64)
         int arraySize = (int)((size + (Long.SIZE - 1)) / Long.SIZE);
 
         assert arraySize > 0 : "Size must be in range [0, Integer.MAX_VALUE * Long.SIZE].";
