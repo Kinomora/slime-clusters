@@ -6,7 +6,8 @@ A tiny tool to search for clusters of slime chunks among possible Minecraft worl
 
 ### Authors
 
-- Ray Ferric (**[rayferric](https://github.com/rayferric)**)
+- Ray Ferric (**[rayferric](https://github.com/rayferric)**) (original source)
+- Kinomora (modifications)
 
 ### License
 
