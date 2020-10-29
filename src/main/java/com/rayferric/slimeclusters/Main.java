@@ -1,10 +1,13 @@
 package com.rayferric.slimeclusters;
 
+import com.kinomora.utils.PrintUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Clock;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -43,6 +46,13 @@ public class Main {
             chunkRange = Integer.parseInt("1024");
         }
 
+        //Create a clock object for the println code --Kino
+        Clock clock = Clock.systemDefaultZone();
+
+        //Change print method to my custom date/time one --Kino
+        //System.setOut(new PrintUtils(System.out, clock));
+
+
         BufferedWriter writer = new BufferedWriter(new FileWriter("clusters.txt"));
 
         // Maps world seeds to lists of clusters:
@@ -53,6 +63,7 @@ public class Main {
 
         // Map them to cluster lists and flatten into a single stream:
         Stream<Cluster> clusters = seeds.mapToObj(mapper::run).flatMap(List::stream).parallel();
+
 
         // Process and print:
         clusters.forEach(cluster -> {

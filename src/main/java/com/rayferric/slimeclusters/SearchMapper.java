@@ -29,6 +29,9 @@ public class SearchMapper {
      * @return list of clusters
      */
     public List<Cluster> run(long worldSeed) {
+        //Print the current world seed, eventually attach a sps calculator here --Kino
+        //printCurrentSeed(worldSeed);
+
         List<Cluster> clusters = new ArrayList<>();
 
         BitField cache = new BitField((extent * 2L) * (extent * 2L));
@@ -47,6 +50,7 @@ public class SearchMapper {
     private final int extent, minSize;
 
     private int findClusters(@NotNull BitField cache, long worldSeed, int chunkX, int chunkZ) {
+
         // Map two-dimensional position to a one-dimensional index:
         long cacheIdx = (long)(chunkX + extent) * (extent * 2) + (chunkZ + extent);
 
@@ -84,5 +88,10 @@ public class SearchMapper {
 
         Random rand = new Random(worldSeed);
         return rand.nextInt(10) == 0;
+    }
+
+    //Placeholder method for printing current working seed, causes memory leak --Kino
+    private void printCurrentSeed(long worldSeed){
+        System.out.print("Checking seed: " + worldSeed);
     }
 }
